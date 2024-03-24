@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'
 import DriversService from '../services/drivers-service'
-import readDrivers from '../utility/read-drivers'
 
 const router = express.Router()
 

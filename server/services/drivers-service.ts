@@ -1,6 +1,4 @@
 import { BasicDriver, Driver } from "../models/driver-model"
-import fs from 'node:fs'
-import path from 'node:path'
 import readDrivers from "../utility/read-drivers"
 export default class DriversService {
     readonly drivers: Driver[] = []
