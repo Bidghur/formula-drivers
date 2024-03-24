@@ -24,7 +24,7 @@ export default function Drivers () {
     }, [])
 
     return (
-        <div>
+        <div style={{ background: '#332f2f' }}>
             {drivers ? (
                 <Container fluid="md">
                     <Row>
