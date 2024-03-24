@@ -7,7 +7,7 @@ interface DriverProps {
     driver: Driver
 }
 
-export default function DriverCard( { setOverTake ,driver }: DriverProps ) {
+export default function DriverCard( { setOverTake, driver }: DriverProps ) {
     const driverFullName = driver.lastname + " " + driver.firstname
     const imgUrl = `http://localhost:8081${driver.imgUrl}`
 
