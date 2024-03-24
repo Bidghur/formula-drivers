@@ -33,7 +33,15 @@ export default function Drivers () {
             {drivers ? (
                 <Container fluid="md">
                     <Row>
-                    {drivers.map(driver => <Col><DriverCard key={driver.id} setOverTakeMultiple={overTakeMultiple} setOverTake={overTake} driver={driver} /> </Col>)}
+                        {drivers.map(driver => 
+                        <Col>
+                            <DriverCard 
+                                key={driver.id} 
+                                setOverTakeMultiple={overTakeMultiple} 
+                                setOverTake={overTake} 
+                                driver={driver} 
+                            /> 
+                        </Col>)}
                     </Row>
                 </Container>
             ):(
