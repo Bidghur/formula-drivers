@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { Driver } from "../models/driver-model"
 import axios from "axios"
 import DriverCard from "../Components/DriverCard"
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Drivers () {
     const [drivers, setDrivers] = useState<Driver[]>([])
@@ -12,7 +15,6 @@ export default function Drivers () {
     }
 
     const overTake = async (driver: Driver) => {
-        console.log(driver)
         const data = await axios.get(`http://localhost:8081/api/drivers/${driver.id}/overtake`)
         setDrivers(data.data)
     }
@@ -24,9 +26,11 @@ export default function Drivers () {
     return (
         <div>
             {drivers ? (
-                <div>
-                    {drivers.map(testdriver => <DriverCard setOverTake={overTake} driver={testdriver} />)}
-                </div>
+                <Container fluid="md">
+                    <Row>
+                    {drivers.map(driver => <Col><DriverCard key={driver.id} setOverTake={overTake} driver={driver} /> </Col>)}
+                    </Row>
+                </Container>
             ):(
                     <div></div>
             )
