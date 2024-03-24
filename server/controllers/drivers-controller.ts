@@ -1,4 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
+import DriversService from '../services/drivers-service'
+import readDrivers from '../utility/read-drivers'
+
 const router = express.Router()
 
 // middleware that is specific to this router
@@ -8,10 +11,13 @@ const timeLog = (req: Request, res: Response, next: NextFunction) => {
     next()
 }
 
+const driverService = new DriversService()
+
 router.use(timeLog)
 
 router.get('/drivers', (req: Request, res: Response) => {
-  res.send('Birds home page')
+    driverService.getAllDrivers()
+    res.send(driverService.getAllDrivers())
 })
 
 router.get('/drivers/:id/overtake', (req: Request, res: Response, next) => {
