@@ -1,4 +1,4 @@
-# How to test formula-drivers
+# Formula drivers full-stack application
 
 This project was created by test porpuses.
 
