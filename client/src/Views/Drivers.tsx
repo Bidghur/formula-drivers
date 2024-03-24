@@ -10,13 +10,32 @@ export default function Drivers () {
     const [drivers, setDrivers] = useState<Driver[]>([])
 
     const getDrivers = async () => {
-        const data = await axios.get('http://localhost:8081/api/drivers')
-        setDrivers(data.data)
+        await getAndSetSortedDrivers('http://localhost:8081/api/drivers', 'get')
     }
 
     const overTake = async (driver: Driver) => {
-        const data = await axios.get(`http://localhost:8081/api/drivers/${driver.id}/overtake`)
-        setDrivers(data.data)
+        await getAndSetSortedDrivers(`http://localhost:8081/api/drivers/${driver.id}/overtake`, 'post')
+    }
+
+    const overTakeMultiple = async (driver: Driver, numberOfOvertakes: number) => {
+        await getAndSetSortedDrivers(`http://localhost:8081/api/drivers/${driver.id}/overtake/${numberOfOvertakes}`, 'post')
+    }
+
+    const sortDriversByPlace = (drivers: Driver[]) => {
+        drivers.sort((firstDriver, secondDriver) => firstDriver.place - secondDriver.place)
+    }
+
+    const getAndSetSortedDrivers = async (url: string, method: 'get' | 'post') => {
+        let data = null
+        if(method === 'get') {
+            data = await axios.get(url)
+        }
+        else {
+            data = await axios.post(url)
+        }
+        const drivers: Driver[] = data?.data
+        sortDriversByPlace(drivers)
+        setDrivers(drivers)
     }
 
     useEffect(() => {
@@ -28,11 +47,19 @@ export default function Drivers () {
             {drivers ? (
                 <Container fluid="md">
                     <Row>
-                    {drivers.map(driver => <Col><DriverCard key={driver.id} setOverTake={overTake} driver={driver} /> </Col>)}
+                        {drivers.map(driver => 
+                        <Col>
+                            <DriverCard 
+                                key={driver.id} 
+                                setOverTakeMultiple={overTakeMultiple} 
+                                setOverTake={overTake} 
+                                driver={driver} 
+                            /> 
+                        </Col>)}
                     </Row>
                 </Container>
             ):(
-                    <div></div>
+                <div></div>
             )
             }
         </div>

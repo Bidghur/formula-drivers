@@ -28,6 +28,30 @@ jest.mock("../utility/read-drivers", () => {
             "lastname": "testLastname",
             "country": "TE",
             "team": "testTeam"
+          },
+          {
+            "id": 3,
+            "code": "TEST",
+            "firstname": "testFirstname",
+            "lastname": "testLastname",
+            "country": "TE",
+            "team": "testTeam"
+          },
+          {
+            "id": 4,
+            "code": "TEST",
+            "firstname": "testFirstname",
+            "lastname": "testLastname",
+            "country": "TE",
+            "team": "testTeam"
+          },
+          {
+            "id": 5,
+            "code": "TEST",
+            "firstname": "testFirstname",
+            "lastname": "testLastname",
+            "country": "TE",
+            "team": "testTeam"
           }
     ]
 
@@ -49,18 +73,11 @@ describe('Drivers Service', () => {
 
     it('Should receive all the drivers', () => {
         expect(drivers).toBeDefined()
-        expect(drivers.length).toBe(3)
+        expect(drivers.length).toBe(6)
     })
 
     it('Every driver should have a unique place', () => {
-        const isArrayUnique = (arr: number[]) => Array.isArray(arr) && new Set(arr).size === arr.length;
-
-        const places: number[] = []
-        drivers.forEach(driver => {
-            places.push(driver.place)
-        })
-
-        expect(isArrayUnique(places)).toBeTruthy()
+        placesAreUnique()
     })
 
     it('Every driver should have an imgUrl', () => {
@@ -75,6 +92,37 @@ describe('Drivers Service', () => {
         service.overTake(secondDriver.id)
         const firstDriver = drivers.find(driver => driver.place === 1)
 
+        placesAreUnique()
         expect(firstDriver).toStrictEqual(secondDriver)
     })
+
+    it('Should take over multiple places with only one call', () => {
+        const lastDriver = drivers.find(driver => driver.place === 6)
+        service.overTakeMultipleDrivers(lastDriver.id, 4)
+        const secondDriver = drivers.find(driver => driver.place === 2)
+
+        placesAreUnique()
+        expect(lastDriver).toStrictEqual(secondDriver)
+    })
+
+    it('should take over more', () => {
+        const lastDriver = drivers.find(driver => driver.place === 4)
+        service.overTakeMultipleDrivers(lastDriver.id, 2)
+        const secondDriver = drivers.find(driver => driver.place === 2)
+
+        placesAreUnique()
+        expect(lastDriver).toStrictEqual(secondDriver)
+    })
+
+    function placesAreUnique() {
+        const places: number[] = []
+        drivers.forEach(driver => {
+            places.push(driver.place)
+        })
+
+        expect(isArrayUnique(places)).toBeTruthy()
+    }
+
+    const isArrayUnique = (arr: number[]) => Array.isArray(arr) && new Set(arr).size === arr.length;
+
 })

@@ -18,8 +18,14 @@ router.get('/drivers', (req: Request, res: Response) => {
     res.send(driverService.getAllDrivers())
 })
 
-router.get('/drivers/:id/overtake', (req: Request, res: Response, next) => {
+router.post('/drivers/:id/overtake', (req: Request, res: Response) => {
     res.send(driverService.overTake(Number(req.params['id'])))
+})
+
+router.post('/drivers/:id/overtake/:numberOfOvertakes', (req: Request, res: Response) => {
+    const id = Number(req.params['id'])
+    const numberOfOvertakes = Number(req.params['numberOfOvertakes'])
+    res.send(driverService.overTakeMultipleDrivers(id, numberOfOvertakes))
 })
 
 export default router
