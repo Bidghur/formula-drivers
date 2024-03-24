@@ -1,8 +1,9 @@
 import express from 'express'
 import router from './controllers/drivers-controller'
 
-
 const app = express()
+
+app.use('/static', express.static('assets'))
 
 app.use('/api', router)
 
