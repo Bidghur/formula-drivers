@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Formula drivers express server",
+  "main": "index.js",
+  "scripts": {
+    "serve": "npm run build && node ./dist/app.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "express": "^4.19.1"
+  }
+}
