@@ -6,7 +6,6 @@ export default function App() {
 
   useEffect(() => {
     navigate('/drivers')
-    // eslint-disable-next-line
   }, [])
 
   return (
