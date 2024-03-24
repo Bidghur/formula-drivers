@@ -18,7 +18,7 @@ export default class DriversService {
     }
 
     private getStaticImageUrl(driver: BasicDriver): string {
-        return `http://localhost:8081/static/${driver.code.toLowerCase()}.png`
+        return `/static/${driver.code.toLowerCase()}.png`
     }
 
     private getRandomNumberBetween(max: number, min: number): number {
@@ -49,7 +49,7 @@ export default class DriversService {
         const overTakenDriver: Driver = this.drivers.find(driver => driver.place === (this.drivers[id].place - 1))
         overTakenDriver.place = overTakenDriver.place + 1
         this.drivers[id].place = this.drivers[id].place - 1
-        
+
         return this.drivers
     }
 }
