@@ -17,7 +17,14 @@ export default function DriverCard( { setOverTake, driver }: DriverProps ) {
             <Card.Body>
             <Card.Title>{driverFullName}</Card.Title>
             <ListGroup variant="flush">
-                <ListGroup.Item>Country: <b>{driver.country}</b> <img style={{ marginLeft: '1rem' }} src={`https://flagsapi.com/${driver.country}/flat/48.png`} alt={`${driver.country}'s flag`}></img></ListGroup.Item>
+                <ListGroup.Item>
+                    Country: <b>{driver.country}</b> 
+                    <img 
+                        style={{ marginLeft: '1rem' }} 
+                        src={`https://flagsapi.com/${driver.country}/flat/48.png`} 
+                        alt={`${driver.country}'s flag`} 
+                    />
+                </ListGroup.Item>
                 <ListGroup.Item>Team: <b>{driver.team}</b></ListGroup.Item>
                 <ListGroup.Item>Current Place: <b>{driver.place}</b></ListGroup.Item>
             </ListGroup>
