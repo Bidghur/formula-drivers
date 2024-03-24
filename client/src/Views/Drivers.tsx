@@ -39,7 +39,7 @@ export default function Drivers () {
     }
 
     useEffect(() => {
-        document.title = 'F1 Drivers'
+        document.title = "F1 Drivers"
         getDrivers()
     }, [])
 
