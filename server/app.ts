@@ -14,8 +14,4 @@ app.use('/static', express.static('assets'))
 
 app.use('/api', router)
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
-
 app.listen(8081)
