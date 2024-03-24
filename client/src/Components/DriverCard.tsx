@@ -12,7 +12,7 @@ export default function DriverCard( { setOverTake, driver }: DriverProps ) {
     const imgUrl = `http://localhost:8081${driver.imgUrl}`
 
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem', marginBottom: '3rem'}}>
             <Card.Img variant="top" src={imgUrl}  />
             <Card.Body>
             <Card.Title>{driverFullName}</Card.Title>
