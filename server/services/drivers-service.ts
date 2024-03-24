@@ -21,16 +21,35 @@ export default class DriversService {
         return `http://localhost:8081/static/${driver.code.toLowerCase()}.png`
     }
 
+    private getRandomNumberBetween(max: number, min: number): number {
+        return Math.floor(Math.random() * (max - min + min) ) + min
+    }
+
     private getRandomPlace(maxLength: number): number {
-        let randomPlace = Math.floor(Math.random() * maxLength)
+        let randomPlace = this.getRandomNumberBetween(maxLength, 1)
         while(this.alreadyUsedPlaces.includes(randomPlace)) {
-            randomPlace = Math.floor(Math.random() * maxLength + 1)
+            randomPlace = this.getRandomNumberBetween(maxLength, 1)
         }
         this.alreadyUsedPlaces.push(randomPlace)
         return randomPlace
     }
 
+    private isTheDriverFirst(driver: Driver): boolean {
+        return driver.place === 1
+    }
+
     getAllDrivers(): Driver[] {
+        return this.drivers
+    }
+
+    overTake(id: number): Driver[] {
+        //If the driver is in the first place, don't change anything
+        if(this.isTheDriverFirst(this.drivers[id])) return this.drivers
+
+        const overTakenDriver: Driver = this.drivers.find(driver => driver.place === (this.drivers[id].place - 1))
+        overTakenDriver.place = overTakenDriver.place + 1
+        this.drivers[id].place = this.drivers[id].place - 1
+        
         return this.drivers
     }
 }

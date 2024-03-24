@@ -15,13 +15,11 @@ const driverService = new DriversService()
 router.use(timeLog)
 
 router.get('/drivers', (req: Request, res: Response) => {
-    driverService.getAllDrivers()
     res.send(driverService.getAllDrivers())
 })
 
 router.get('/drivers/:id/overtake', (req: Request, res: Response, next) => {
-    console.log(req.params)
-    res.send('About birds')
+    res.send(driverService.overTake(Number(req.params['id'])))
 })
 
 export default router
