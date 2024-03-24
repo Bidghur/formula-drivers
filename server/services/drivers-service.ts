@@ -38,21 +38,41 @@ export default class DriversService {
         return driver.place === 1
     }
 
-    getAllDrivers(): Driver[] {
-        return this.drivers
-    }
-
-    overTake(id: number): Driver[] {
+    private validateDriverAndParam(id: number): Driver[] {
         //If the id is larger then our drivers array, we don't change anything
         //TODO WORDING
         if(id >= this.drivers.length || id < 0) throw new Error('The Id needs to be between 0 and 20')
         //If the driver is in the first place, don't change anything
         if(this.isTheDriverFirst(this.drivers[id])) return this.drivers
 
-        const overTakenDriver: Driver = this.drivers.find(driver => driver.place === (this.drivers[id].place - 1))
-        overTakenDriver.place = overTakenDriver.place + 1
-        this.drivers[id].place = this.drivers[id].place - 1
+        return []
+    }
 
+    getAllDrivers(): Driver[] {
+        return this.drivers
+    }
+
+    overTake(id: number): Driver[] {
+        if(this.validateDriverAndParam(id).length === 0) {
+            const overTakenDriver: Driver = this.drivers.find(driver => driver.place === (this.drivers[id].place - 1))
+            overTakenDriver.place = overTakenDriver.place + 1
+            this.drivers[id].place = this.drivers[id].place - 1
+    
+            return this.drivers
+        }
+        return this.drivers
+    }
+
+    overTakeMultipleDrivers(id: number, numberOfOverTakes: number): Driver[] {
+        if((this.drivers[id].place - numberOfOverTakes) <= 0) return this.drivers
+        if(this.validateDriverAndParam(id).length === 0) {
+            this.drivers.forEach(driver => {
+                if(driver.id !== this.drivers[id].id && driver.place >= (this.drivers[id].place - numberOfOverTakes) && driver.place !<= this.drivers[id].place) {
+                    driver.place = driver.place + 1
+                }
+            })
+            this.drivers[id].place = this.drivers[id].place - numberOfOverTakes
+        }
         return this.drivers
     }
 }

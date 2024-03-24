@@ -15,7 +15,12 @@ export default function Drivers () {
     }
 
     const overTake = async (driver: Driver) => {
-        const data = await axios.get(`http://localhost:8081/api/drivers/${driver.id}/overtake`)
+        const data = await axios.post(`http://localhost:8081/api/drivers/${driver.id}/overtake`)
+        setDrivers(data.data)
+    }
+
+    const overTakeMultiple = async (driver: Driver, numberOfOvertakes: number) => {
+        const data = await axios.post(`http://localhost:8081/api/drivers/${driver.id}/overtake/${numberOfOvertakes}`)
         setDrivers(data.data)
     }
 
@@ -28,7 +33,7 @@ export default function Drivers () {
             {drivers ? (
                 <Container fluid="md">
                     <Row>
-                    {drivers.map(driver => <Col><DriverCard key={driver.id} setOverTake={overTake} driver={driver} /> </Col>)}
+                    {drivers.map(driver => <Col><DriverCard key={driver.id} setOverTakeMultiple={overTakeMultiple} setOverTake={overTake} driver={driver} /> </Col>)}
                     </Row>
                 </Container>
             ):(
