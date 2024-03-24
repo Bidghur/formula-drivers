@@ -46,7 +46,7 @@ export default function DriverCard( { setOverTake, setOverTakeMultiple, driver }
                             max={driver.place - 1} 
                             value={multipleOverTakeValue} 
                             onChange={changeOverTakeValue} 
-                            style={{ width: "3rem" }} 
+                            style={{ width: "3rem", marginTop: '0.3rem' }} 
                             type='number'>
                         </input>
                     </Col>
