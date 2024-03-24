@@ -43,6 +43,9 @@ export default class DriversService {
     }
 
     overTake(id: number): Driver[] {
+        //If the id is larger then our drivers array, we don't change anything
+        //TODO WORDING
+        if(id >= this.drivers.length || id < 0) throw new Error('The Id needs to be between 0 and 20')
         //If the driver is in the first place, don't change anything
         if(this.isTheDriverFirst(this.drivers[id])) return this.drivers
 
